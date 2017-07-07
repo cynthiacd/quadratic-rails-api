@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20170707214510) do
   enable_extension "plpgsql"
 
   create_table "users", force: :cascade do |t|
-    t.string   "user_name"
+    t.string   "username"
     t.integer  "pattern_plus_plus"
     t.integer  "pattern_minus_plus"
     t.integer  "pattern_minus_minus"
