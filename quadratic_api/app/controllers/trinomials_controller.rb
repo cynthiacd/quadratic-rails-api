@@ -9,7 +9,6 @@ class TrinomialsController < ApplicationController
     # pattern = generate_plus_plus
     # find that pattern
     render json: problem.generate_plus_plus,
-           each_serializer: TrinomialSerializer,
            status: :ok
   end
 
