@@ -13,8 +13,6 @@ class TrinomialsController < ApplicationController
   end
 
   def check_solution
-    p "a post request came :)"
-    p params
     # the params might look like: { "trinomial" => { "general_form": "blah",
                                               # "solution": "()()",
                                               # "username": "testname1",
@@ -23,16 +21,18 @@ class TrinomialsController < ApplicationController
                                                 # "step2": "blah",
                                                 # "step3/final answer": "blah"
                                               # "points": true or false }}
-    # user = params["username"]
+    # user_answer = params["final"]
+    # solution1 = params["solution1"]
+    # solution2 = params["solution2"]
     user = User.find_by(username: params["username"])
-    p user
+    user.update_mastery_levels(params)
     # pattern = params["pattern"]
     # points = params["points"]
 
     # call User class function to update mastery level
 
     # provide API response
-    # render status: :ok, json: { message: "Ready for next problem"}
+    render status: :ok, json: { message: "Ready for next problem"}
   end
 
 
