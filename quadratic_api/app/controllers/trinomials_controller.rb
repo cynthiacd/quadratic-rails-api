@@ -24,7 +24,8 @@ class TrinomialsController < ApplicationController
                                                 # "step3/final answer": "blah"
                                               # "points": true or false }}
     # user = params["username"]
-    # user = User.find_by(username: params["username"])
+    user = User.find_by(username: params["username"])
+    p user
     # pattern = params["pattern"]
     # points = params["points"]
 
