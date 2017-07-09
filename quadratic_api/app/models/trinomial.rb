@@ -12,7 +12,7 @@ class Trinomial
     # return a hash?
     return {
             pattern: "plus_plus",
-            general_form: "x^2 + #{b}x + #{c}",
+            general_form: "+ #{b}x + #{c}",
             a: 1,
             b: b,
             c: c,
