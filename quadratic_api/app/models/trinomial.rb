@@ -15,7 +15,8 @@ class Trinomial
             general_form: "x^2 + #{b}x + #{c}",
             a: 1,
             b: b,
-            c: c }
+            c: c,
+            solution: "(x+#{b})(x+#{c})"}
     # or could return an array?
     # return [1, b, c]
   end
