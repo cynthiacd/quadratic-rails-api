@@ -16,7 +16,8 @@ class Trinomial
             a: 1,
             b: b,
             c: c,
-            solution: "(x+#{b})(x+#{c})"}
+            solution1: "=(x+#{root1})(x+#{root2})",
+            solution2: "=(x+#{root2})(x+#{root1})"}
     # or could return an array?
     # return [1, b, c]
   end
