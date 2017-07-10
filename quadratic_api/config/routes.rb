@@ -3,5 +3,5 @@ Rails.application.routes.draw do
 
   # following convention trinomials should be pluar but you are really only sending one problem...
   get "trinomials", to: "trinomials#index", as: "trinomials"
-  post "trinomials/check", to: "trinomials#check_solution", as: "check_solution"
+  post "trinomials/check", to: "users#check_solution", as: "check_solution"
 end

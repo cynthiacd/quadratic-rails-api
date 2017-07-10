@@ -1,6 +1,12 @@
 class Trinomial < ApplicationRecord
   belongs_to :user
+  after_initialize :create_roots
 
+  def create_roots
+    self.root1 ||= rand(1..13)
+    self.root2 ||= rand(1..13)
+    self.save
+  end
   def generate_random_trinomial
     random_pattern = ["plus_plus",
                       "minus_plus",
