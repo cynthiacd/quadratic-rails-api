@@ -13,6 +13,8 @@ class TrinomialsController < ApplicationController
            status: :ok
   end
 
+  # should this be in a users controller cause its main job is to update the users
+  # mastery level?
   def check_solution
     # the params might look like: { "trinomial" => { "general_form": "blah",
                                               # "solution": "()()",
@@ -32,6 +34,4 @@ class TrinomialsController < ApplicationController
     # provide API response
     render status: :ok, json: { message: "Ready for next problem"}
   end
-
-
 end

@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
+  has_many :trinomials
 
   def update_mastery_levels(problem_info)
     pattern = problem_info["pattern"]

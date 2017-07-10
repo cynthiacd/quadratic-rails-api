@@ -18,15 +18,15 @@ describe Trinomial do
       problem.generate_plus_plus.must_be_instance_of Hash
     end
 
-    it 'the hash has three key-value pairs' do
-      problem.generate_plus_plus.length.must_equal 3
-    end
+    # it 'the hash has three key-value pairs' do
+    #   problem.generate_plus_plus.length.must_equal 3
+    # end
 
-    it 'the values of the hash are all integers' do
-      problem.generate_plus_plus.each do |coefficeient, value|
-        value.must_be_instance_of Integer
-      end
-    end
+    # it 'the values of the hash are all integers' do
+    #   problem.generate_plus_plus.each do |coefficeient, value|
+    #     value.must_be_instance_of Integer
+    #   end
+    # end
   end
 
 end
