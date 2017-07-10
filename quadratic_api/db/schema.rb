@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20170710215136) do
 
   create_table "trinomials", force: :cascade do |t|
     t.integer  "root1",      default: 10
-    t.integer  "root2",      default: 3
-    t.integer  "user_id"
+    t.integer  "root2",      default: 13
+    t.integer  "user_id",    default: 1
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.index ["user_id"], name: "index_trinomials_on_user_id", using: :btree
