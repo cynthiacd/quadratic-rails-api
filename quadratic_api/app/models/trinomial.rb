@@ -14,6 +14,22 @@ class Trinomial
     end
   end
 
+  def generate_random_trinomial
+    random_pattern = ["plus_plus",
+                      "minus_plus",
+                      "minus_minus"].sample
+    case random_pattern
+    when "plus_plus"
+      return self.generate_plus_plus
+    when "minus_plus"
+      return self.generate_minus_plus
+    when "minus_minus"
+      return self.generate_minus_minus
+    # when "plus_minus"
+      # return self.generate_plus_minus
+    end
+  end
+
   def generate_plus_plus
     b = @root1 + @root2
     c = @root1 * @root2
@@ -41,5 +57,28 @@ class Trinomial
     }
   end
 
+  def generate_minus_minus
+    if @root1 > @root2
+      @root1 *= -1
+    else
+      @root2 *= -1
+    end
+
+    b = @root1 + @root2
+    c = @root1 * @root2
+
+    solution1 = "=(x+#{@root1})(x+#{@root2})".sub!("+-", "-" )
+    solution2 = "=(x+#{@root2})(x+#{@root1})".sub!("+-", "-")
+
+    return {
+      pattern: "minus_minus",
+      general_form: " #{b}x #{c}",
+      solution1: solution1,
+      solution2: solution2
+    }
+  end
+
+  # def generate_plus_minus
+  # end
 
 end
