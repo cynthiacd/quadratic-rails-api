@@ -1,3 +1,3 @@
 class TrinomialSerializer < ActiveModel::Serializer
-  attributes :root1, :root2, :generate_plus_plus
+  attributes :root1, :root2, :trinomial
 end

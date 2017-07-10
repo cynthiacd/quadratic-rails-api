@@ -5,10 +5,11 @@ class TrinomialsController < ApplicationController
   def index
     # initialize a new problem
     problem = Trinomial.new
+
     # next figure out the pattern to call
     # pattern = generate_plus_plus
     # find that pattern
-    render json: problem.generate_plus_plus,
+    render json: problem.generate_random_trinomial,
            status: :ok
   end
 
@@ -25,11 +26,8 @@ class TrinomialsController < ApplicationController
     # solution1 = params["solution1"]
     # solution2 = params["solution2"]
     user = User.find_by(username: params["username"])
-    user.update_mastery_levels(params)
-    # pattern = params["pattern"]
-    # points = params["points"]
-
     # call User class function to update mastery level
+    user.update_mastery_levels(params)
 
     # provide API response
     render status: :ok, json: { message: "Ready for next problem"}
