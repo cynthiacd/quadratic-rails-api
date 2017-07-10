@@ -36,61 +36,61 @@ class Trinomial < ApplicationRecord
     return problem_info
   end
 
-  # def generate_minus_plus
-  #   b = -1*(self.root1 + root2)
-  #   c = self.root1 * root2
-  #
-  #   return {
-  #     pattern: "minus_plus",
-  #     general_form: " #{b}x + #{c}",
-  #     solution1: "=(x-#{self.root1})(x-#{root2})",
-  #     solution2: "=(x-#{root2})(x-#{self.root1})"
-  #   }
-  # end
-  #
-  # def generate_minus_minus
-  #   if root1 > root2
-  #     root1 *= -1
-  #   else
-  #     root2 *= -1
-  #   end
-  #
-  #   b = root1 + root2
-  #   c = root1 * root2
-  #
-  #   solution1 = self.fix_signs("=(x+#{root1})(x+#{root2})")
-  #   solution2 = self.fix_signs("=(x+#{root2})(x+#{root1})")
-  #
-  #   return {
-  #     pattern: "minus_minus",
-  #     general_form: " #{b}x #{c}",
-  #     solution1: solution1,
-  #     solution2: solution2
-  #   }
-  # end
-  #
-  # def generate_plus_minus
-  #   if root2 > root1
-  #     root1 *= -1
-  #   else
-  #     @root2 *= -1
-  #   end
-  #
-  #   b = root1 + root2
-  #   c = root1 * root2
-  #
-  #   solution1 = self.fix_signs("=(x+#{root1})(x+#{root2})")
-  #   solution2 = self.fix_signs("=(x+#{root2})(x+#{root1})")
-  #
-  #   return {
-  #     pattern: "plus_minus",
-  #     general_form: " +#{b}x #{c}",
-  #     solution1: solution1,
-  #     solution2: solution2
-  #   }
-  # end
-  #
-  # def fix_signs(expression)
-  #   return expression.sub("+-", "-")
-  # end
+  def generate_minus_plus
+    b = -1*(self.root1 + self.root2)
+    c = self.root1 * self.root2
+
+    return {
+      pattern: "minus_plus",
+      general_form: " #{b}x + #{c}",
+      solution1: "=(x-#{self.root1})(x-#{self.root2})",
+      solution2: "=(x-#{self.root2})(x-#{self.root1})"
+    }
+  end
+
+  def generate_minus_minus
+    if self.root1 > self.root2
+      self.root1 *= -1
+    else
+      self.root2 *= -1
+    end
+
+    b = self.root1 + self.root2
+    c = self.root1 * self.root2
+
+    solution1 = self.fix_signs("=(x+#{self.root1})(x+#{self.root2})")
+    solution2 = self.fix_signs("=(x+#{self.root2})(x+#{self.root1})")
+
+    return {
+      pattern: "minus_minus",
+      general_form: " #{b}x #{c}",
+      solution1: solution1,
+      solution2: solution2
+    }
+  end
+
+  def generate_plus_minus
+    if self.root2 > self.root1
+      self.root1 *= -1
+    else
+      self.root2 *= -1
+    end
+
+    b = self.root1 + self.root2
+    c = self.root1 * self.root2
+
+    solution1 = self.fix_signs("=(x+#{self.root1})(x+#{self.root2})")
+    solution2 = self.fix_signs("=(x+#{self.root2})(x+#{self.root1})")
+
+    return {
+      pattern: "plus_minus",
+      general_form: " +#{b}x #{c}",
+      solution1: solution1,
+      solution2: solution2
+    }
+  end
+
+  def fix_signs(expression)
+    return expression.sub("+-", "-")
+  end
 end
