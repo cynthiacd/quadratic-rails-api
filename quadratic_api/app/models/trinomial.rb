@@ -17,7 +17,8 @@ class Trinomial
   def generate_random_trinomial
     random_pattern = ["plus_plus",
                       "minus_plus",
-                      "minus_minus"].sample
+                      "minus_minus",
+                      "plus_minus"].sample
     case random_pattern
     when "plus_plus"
       return self.generate_plus_plus
@@ -25,8 +26,8 @@ class Trinomial
       return self.generate_minus_plus
     when "minus_minus"
       return self.generate_minus_minus
-    # when "plus_minus"
-      # return self.generate_plus_minus
+    when "plus_minus"
+      return self.generate_plus_minus
     end
   end
 
@@ -67,8 +68,8 @@ class Trinomial
     b = @root1 + @root2
     c = @root1 * @root2
 
-    solution1 = "=(x+#{@root1})(x+#{@root2})".sub!("+-", "-" )
-    solution2 = "=(x+#{@root2})(x+#{@root1})".sub!("+-", "-")
+    solution1 = self.fix_signs("=(x+#{@root1})(x+#{@root2})")
+    solution2 = self.fix_signs("=(x+#{@root2})(x+#{@root1})")
 
     return {
       pattern: "minus_minus",
@@ -78,7 +79,28 @@ class Trinomial
     }
   end
 
-  # def generate_plus_minus
-  # end
+  def generate_plus_minus
+    if @root2 > @root1
+      @root1 *= -1
+    else
+      @root2 *= -1
+    end
 
+    b = @root1 + @root2
+    c = @root1 * @root2
+
+    solution1 = self.fix_signs("=(x+#{@root1})(x+#{@root2})")
+    solution2 = self.fix_signs("=(x+#{@root2})(x+#{@root1})")
+
+    return {
+      pattern: "plus_minus",
+      general_form: " +#{b}x #{c}",
+      solution1: solution1,
+      solution2: solution2
+    }
+  end
+
+  def fix_signs(expression)
+    return expression.sub("+-", "-")
+  end
 end
