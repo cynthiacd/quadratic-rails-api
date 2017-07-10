@@ -25,8 +25,6 @@ class Trinomial < ApplicationRecord
     end
   end
 
-  # b and c should be same for all methods,
-  # and solutions same - will need to run through fix signs
   def generate_plus_plus
     self.generate_b_and_c
     self.generate_solutions
@@ -34,9 +32,6 @@ class Trinomial < ApplicationRecord
     return {
       pattern: "plus_plus",
       general_form: "+ #{@b}x + #{@c}",
-      # a: 1,
-      # b: @b,
-      # c: @c,
       solution1: @solution1,
       solution2: @solution2
     }
@@ -45,44 +40,38 @@ class Trinomial < ApplicationRecord
   def generate_minus_plus
     self.root1 *= -1
     self.root2 *= -1
-
     self.generate_b_and_c
     self.generate_solutions
 
     return {
       pattern: "minus_plus",
-      general_form: "#{@b}x + #{@c}",
+      general_form: "- #{@b.abs}x + #{@c}",
       solution1: @solution1,
       solution2: @solution2
     }
   end
 
   def generate_minus_minus
-
     self.root1 > self.root2 ? self.root1 *= -1 : self.root2 *= -1
     self.generate_b_and_c
     self.generate_solutions
 
-    # solution1 = self.fix_signs("=(x+#{self.root1})(x+#{self.root2})")
-    # solution2 = self.fix_signs("=(x+#{self.root2})(x+#{self.root1})")
-
     return {
       pattern: "minus_minus",
-      general_form: " #{@b}x #{@c}",
+      general_form: "- #{@b.abs}x - #{@c.abs}",
       solution1: @solution1,
       solution2: @solution2
     }
   end
 
   def generate_plus_minus
-
     self.root2 > self.root1 ? self.root1 *= -1 : self.root2 *= -1
     self.generate_b_and_c
     self.generate_solutions
 
     return {
       pattern: "plus_minus",
-      general_form: " +#{@b}x #{@c}",
+      general_form: " + #{@b}x - #{@c.abs}",
       solution1: @solution1,
       solution2: @solution2
     }
@@ -99,6 +88,9 @@ class Trinomial < ApplicationRecord
   end
 
   def fix_signs(expression)
-    return expression.sub("+-", "-")
+    until expression == expression.sub("+-", "-")
+      expression = expression.sub("+-", "-")
+    end
+    return expression
   end
 end
