@@ -12,7 +12,10 @@ class Trinomial < ApplicationRecord
     random_pattern = ["plus_plus",
                       "minus_plus",
                       "minus_minus",
-                      "plus_minus"].sample
+                      "plus_minus",
+                      "diff_sq",
+                      "plus_dbl_sq",
+                      "minus_dbl_sq"].sample
     case random_pattern
     when "plus_plus"
       return self.generate_plus_plus
@@ -22,7 +25,16 @@ class Trinomial < ApplicationRecord
       return self.generate_minus_minus
     when "plus_minus"
       return self.generate_plus_minus
+    when "diff_sq"
+      return self.generate_diff_squares
+    when "plus_dbl_sq"
+      return self.generate_plus_dbl_sq
+    when "minus_dbl_sq"
+      return self.generate_minus_dbl_sq
     end
+  end
+
+  def generate_custom_trinomial
   end
 
   def generate_plus_plus
@@ -78,11 +90,10 @@ class Trinomial < ApplicationRecord
   end
 
   def generate_diff_squares
-    # your don't need two roots - need to resave one
+    # your don't need two unique roots
     self.root2 = -1* self.root1
     self.save
 
-    # self.generate_b_and_c
     return {
       pattern: "diff_sq",
       general_form: "- #{self.root1.abs2}",
@@ -96,13 +107,23 @@ class Trinomial < ApplicationRecord
 
     return {
       pattern: "plus_dbl_sq",
-      general_form: "+ #{self.root1*2}x + #{self.root1.abs2}",
+      general_form: "+ #{self.root1 * 2}x + #{self.root1.abs2}",
       solution1: "=(x+#{self.root1})(x+#{self.root1})",
       solution2: "=(x+#{self.root1})^2"
     }
   end
 
   def generate_minus_dbl_sq
+    self.root1 *= -1
+    self.root2 = self.root1
+    self.save
+
+    return {
+      pattern: "minus_dbl_sq",
+      general_form: "- #{self.root1.abs * 2}x + #{self.root1.abs2}",
+      solution1: "=(x-#{self.root1.abs})(x-#{self.root1.abs})",
+      solution2: "=(x-#{self.root1.abs})^2"
+    }
   end
 
   # def generate_gcf(problem_info)

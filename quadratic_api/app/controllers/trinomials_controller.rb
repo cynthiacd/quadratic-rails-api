@@ -5,11 +5,15 @@ class TrinomialsController < ApplicationController
   def index
     # initialize a new problem
     problem = Trinomial.new
+    # in future will need to set user for problem
+    # user = ""
+    # problem.user_id = user.id
+
 
     # next figure out the pattern to call
     # pattern = generate_plus_plus
     # find that pattern
-    render json: problem.generate_plus_dbl_sq,
+    render json: problem.generate_random_trinomial,
            status: :ok
   end
 
