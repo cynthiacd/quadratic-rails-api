@@ -77,6 +77,23 @@ class Trinomial < ApplicationRecord
     }
   end
 
+  def generate_diff_squares
+    # your don't need two roots - need to resave one
+    self.root2 = -1* self.root1
+    self.save
+
+    # self.generate_b_and_c
+    return {
+      pattern: "diff_sq",
+      general_form: "- #{self.root1.abs2}",
+      solution1: "=(x-#{self.root1})(x+#{self.root1})"
+    }
+
+  end
+
+  # def generate_gcf(problem_info)
+  # end
+
   def generate_b_and_c
     @b = self.root1 + self.root2
     @c = self.root1 * self.root2

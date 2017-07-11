@@ -9,7 +9,7 @@ class TrinomialsController < ApplicationController
     # next figure out the pattern to call
     # pattern = generate_plus_plus
     # find that pattern
-    render json: problem.generate_random_trinomial,
+    render json: problem.generate_diff_squares,
            status: :ok
   end
 
