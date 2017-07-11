@@ -88,7 +88,21 @@ class Trinomial < ApplicationRecord
       general_form: "- #{self.root1.abs2}",
       solution1: "=(x-#{self.root1})(x+#{self.root1})"
     }
+  end
 
+  def generate_plus_dbl_sq
+    self.root2 = self.root1
+    self.save
+
+    return {
+      pattern: "plus_dbl_sq",
+      general_form: "+ #{self.root1*2}x + #{self.root1.abs2}",
+      solution1: "=(x+#{self.root1})(x+#{self.root1})",
+      solution2: "=(x+#{self.root1})^2"
+    }
+  end
+
+  def generate_minus_dbl_sq
   end
 
   # def generate_gcf(problem_info)
