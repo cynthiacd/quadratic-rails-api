@@ -92,6 +92,7 @@ class Trinomial < ApplicationRecord
   def generate_diff_squares
     # your don't need two unique roots
     self.root2 = -1* self.root1
+    self.generate_b_and_c
     self.save
 
     return {
@@ -103,6 +104,7 @@ class Trinomial < ApplicationRecord
 
   def generate_plus_dbl_sq
     self.root2 = self.root1
+    self.generate_b_and_c
     self.save
 
     return {
@@ -116,6 +118,7 @@ class Trinomial < ApplicationRecord
   def generate_minus_dbl_sq
     self.root1 *= -1
     self.root2 = self.root1
+    self.generate_b_and_c
     self.save
 
     return {
@@ -126,8 +129,30 @@ class Trinomial < ApplicationRecord
     }
   end
 
-  # def generate_gcf(problem_info)
-  # end
+  # this is tricky - really need a way to geneate all general forms and then have signs fixed ...
+  def generate_gcf
+    trinomial = self.generate_minus_minus
+    # p trinomial
+    a = rand(2..5)
+    @b *= a
+    @c *= a
+
+    general_form = fix_signs("+ #{@b}x + #{@c}")
+    # working when I put this here - need to have  method fix_signs do this
+    general_form = general_form.sub("+ -", "- ")
+    # p general_form
+
+    trinomial[:solution1][1] = "#{a}("
+    trinomial[:solution2][1]= "#{a}("
+
+    trinomial[:pattern] = "gcf_" + trinomial[:pattern]
+    trinomial[:general_form] = general_form
+    trinomial[:a] = a
+    trinomial[:b] = @b
+    trinomial[:c] = @c
+
+    return trinomial
+  end
 
   def generate_b_and_c
     @b = self.root1 + self.root2
@@ -139,10 +164,13 @@ class Trinomial < ApplicationRecord
     @solution2 = self.fix_signs("=(x+#{self.root2})(x+#{self.root1})")
   end
 
+  # how do I get make this method work to fix all signs for all expressions
   def fix_signs(expression)
-    until expression == expression.sub("+-", "-")
+    until expression == expression.sub("+-", "-") && expression == expression.sub("+ -", "- ")
       expression = expression.sub("+-", "-")
+      expression = expression.sub("+ -", "- ")
     end
+
     return expression
   end
 end
