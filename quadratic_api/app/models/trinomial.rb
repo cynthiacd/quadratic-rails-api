@@ -15,7 +15,8 @@ class Trinomial < ApplicationRecord
                       "plus_minus",
                       "diff_sq",
                       "plus_dbl_sq",
-                      "minus_dbl_sq"].sample
+                      "minus_dbl_sq",
+                      "gcf"].sample
     case random_pattern
     when "plus_plus"
       return self.generate_plus_plus
@@ -31,6 +32,8 @@ class Trinomial < ApplicationRecord
       return self.generate_plus_dbl_sq
     when "minus_dbl_sq"
       return self.generate_minus_dbl_sq
+    when "gcf"
+      return self.generate_gcf
     end
   end
 
@@ -139,7 +142,7 @@ class Trinomial < ApplicationRecord
 
     general_form = fix_signs("+ #{@b}x + #{@c}")
     # working when I put this here - need to have  method fix_signs do this
-    general_form = general_form.sub("+ -", "- ")
+    # general_form = general_form.sub("+ -", "- ")
     # p general_form
 
     trinomial[:solution1][1] = "#{a}("
@@ -153,6 +156,15 @@ class Trinomial < ApplicationRecord
 
     return trinomial
   end
+
+  # def generate_primes
+  # end
+  #
+  # def generate_zeros_and_ones
+  # end
+  #
+  # def generate_a_greater_one
+  # end
 
   def generate_b_and_c
     @b = self.root1 + self.root2
