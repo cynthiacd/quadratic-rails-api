@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20170712210022) do
     t.integer  "mastery_gcf",            default: 0
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.integer  "total_problems"
+    t.integer  "total_problems",         default: 0
   end
 
 end

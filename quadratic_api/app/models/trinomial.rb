@@ -76,6 +76,7 @@ class Trinomial < ApplicationRecord
   def generate(signs)
     self.generate_b_and_c
     self.generate_solutions
+    self.save
 
     return {
       pattern: self.pattern,
