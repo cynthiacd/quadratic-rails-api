@@ -13,7 +13,7 @@ class TrinomialsController < ApplicationController
     # next figure out the pattern to call
     # pattern = generate_plus_plus
     # find that pattern
-    render json: problem.generate_custom_trinomial,
+    render json: problem.generate_primes,
            status: :ok
   end
 

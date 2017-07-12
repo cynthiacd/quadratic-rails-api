@@ -17,40 +17,16 @@ class Trinomial < ApplicationRecord
                       "plus_dbl_sq",
                       "minus_dbl_sq",
                       "gcf"].sample
-    case random_pattern
-    when "plus_plus"
-      return self.generate_plus_plus
-    when "minus_plus"
-      return self.generate_minus_plus
-    when "minus_minus"
-      return self.generate_minus_minus
-    when "plus_minus"
-      return self.generate_plus_minus
-    when "diff_sq"
-      return self.generate_diff_squares
-    when "plus_dbl_sq"
-      return self.generate_plus_dbl_sq
-    when "minus_dbl_sq"
-      return self.generate_minus_dbl_sq
-    when "gcf"
-      return self.generate_gcf
-    end
+    return self.generate_trinomial(random_pattern)
   end
 
   def generate_custom_trinomial
     user = self.user
     report = user.generate_mastery_report
-    lowest = report.min_by { |pattern, level| level } #returns array of hashes with pattern and level
+    p report
+    lowest = report.min_by { |pattern, level| level } #returns array [:pattern, level]
     p lowest
     return self.generate_trinomial(lowest[0].to_s)
-
-    # patterns_to_work_on = []
-    # report.each do |pattern, level|
-    #   if level < lowest[0]
-    #     patterns_to_work_on << pattern
-    #     lowest = level
-    #   end
-    # end
   end
 
   def generate_plus_plus
@@ -148,7 +124,7 @@ class Trinomial < ApplicationRecord
 
   # this is tricky - really need a way to geneate all general forms and then have signs fixed ...
   def generate_gcf
-    trinomial = self.generate_minus_minus
+    trinomial = self.generate_random_trinomial
     # p trinomial
     a = rand(2..5)
     @b *= a
@@ -171,8 +147,19 @@ class Trinomial < ApplicationRecord
     return trinomial
   end
 
-  # def generate_primes
-  # end
+  def generate_primes
+    trinomial = self.generate_random_trinomial
+    # will this work? or will there be some random cases where this still returns
+    # a factorable trinomial
+    @b -= 3
+    general_form = fix_signs("+ #{@b}x + #{@c}")
+    # p general_form
+    trinomial[:pattern] = "primes"
+    trinomial[:general_form] = general_form
+    trinomial[:solution1]="prime"
+    trinomial[:solution2]="NA"
+    return trinomial
+  end
   #
   # def generate_zeros_and_ones
   # end

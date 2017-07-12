@@ -17,7 +17,8 @@ class User < ApplicationRecord
       minus_dbl_sq: self.mastery_minus_dbl_sq,
       plus_dbl_sq: self.mastery_plus_dbl_sq,
       diff_sq: self.mastery_diff_sq,
-      gcf: self.mastery_gcf
+      gcf: self.mastery_gcf,
+      total_problems_attempted: self.trinomials.count
     }
   end
 end
