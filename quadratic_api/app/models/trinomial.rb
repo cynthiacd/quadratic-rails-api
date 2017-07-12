@@ -148,7 +148,7 @@ class Trinomial < ApplicationRecord
     trinomial[:solution1][1] = "#{a}("
     trinomial[:solution2][1]= "#{a}("
 
-    trinomial[:pattern] = "gcf_" + trinomial[:pattern]
+    trinomial[:pattern] = "gcf"
     trinomial[:general_form] = general_form
     trinomial[:a] = a
     trinomial[:b] = @b
