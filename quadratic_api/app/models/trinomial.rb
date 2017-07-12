@@ -34,11 +34,7 @@ class Trinomial < ApplicationRecord
   # end
 
   def generate_trinomial(pattern)
-    # if pattern != "plus_dbl_sq" && pattern != "minus_dbl_sq" && pattern !=
     self.pattern = pattern
-    self.generate_b_and_c
-    self.generate_solutions
-
     case pattern
     when "plus_plus"
       return self.generate( { sign1: "+", sign2: "+" } )
@@ -62,16 +58,11 @@ class Trinomial < ApplicationRecord
 
     when "plus_dbl_sq"
       self.root2 = self.root1
-      # cause I change the roots I have to recall these methods
-      self.generate_b_and_c
-      self.generate_solutions
       return self.generate( { sign1: "+", sign2: "+" } )
 
     when "minus_dbl_sq"
       self.root1 *= -1
       self.root2 = self.root1
-      self.generate_b_and_c
-      self.generate_solutions
       return self.generate( { sign1: "-", sign2: "+" } )
 
     when "gcf"
@@ -83,31 +74,15 @@ class Trinomial < ApplicationRecord
   end
 
   def generate(signs)
+    self.generate_b_and_c
+    self.generate_solutions
+
     return {
       pattern: self.pattern,
       general_form: "#{signs[:sign1]} #{@b.abs}x #{signs[:sign2]} #{@c.abs}",
       solution1: @solution1,
       solution2: @solution2
     }
-  end
-
-  def generate_b_and_c
-    @b = self.root1 + self.root2
-    @c = self.root1 * self.root2
-  end
-
-  def generate_solutions
-    @solution1 = self.fix_signs("=(x+#{self.root1})(x+#{self.root2})")
-    @solution2 = self.fix_signs("=(x+#{self.root2})(x+#{self.root1})")
-  end
-
-  # how do I get make this method work to fix all signs for all expressions
-  def fix_signs(expression)
-    until expression == expression.sub("+-", "-") && expression == expression.sub("+ -", "- ")
-      expression = expression.sub("+-", "-")
-      expression = expression.sub("+ -", "- ")
-    end
-    return expression
   end
 
   def generate_diff_squares
@@ -140,27 +115,42 @@ class Trinomial < ApplicationRecord
   end
   #
   def generate_prime
-    # another way generate array of x known prime trinomials and call one
+    # another way generate array of x known prime trinomials and call one # another method - swap the signs?
     trinomial = self.generate_random_trinomial
 
     # will this work? or will there be some random cases where this still returns
     # a factorable trinomial
-    # another method - swap the signs?
     @b -= 3
     general_form = fix_signs("+ #{@b}x + #{@c}")
 
-    # trinomial[:pattern] = "primes"
     trinomial[:general_form] = general_form
     trinomial[:solution1]="prime"
     trinomial[:solution2]="NA"
     return trinomial
   end
-  #
+
   # def generate_zeros_and_ones
   # end
   #
   # def generate_a_greater_one
   # end
 
+  def generate_b_and_c
+    @b = self.root1 + self.root2
+    @c = self.root1 * self.root2
+  end
 
+  def generate_solutions
+    @solution1 = self.fix_signs("=(x+#{self.root1})(x+#{self.root2})")
+    @solution2 = self.fix_signs("=(x+#{self.root2})(x+#{self.root1})")
+  end
+
+  # how do I get make this method work to fix all signs for all expressions
+  def fix_signs(expression)
+    until expression == expression.sub("+-", "-") && expression == expression.sub("+ -", "- ")
+      expression = expression.sub("+-", "-")
+      expression = expression.sub("+ -", "- ")
+    end
+    return expression
+  end
 end

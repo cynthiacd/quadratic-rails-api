@@ -5,6 +5,7 @@ class User < ApplicationRecord
   def update_mastery_levels(problem_info)
     ## add total problems as col for user table
     # self.total_problems += 1
+    self.count += 1
     pattern = problem_info["pattern"]
     self[pattern] += problem_info["score"]
     self.save
