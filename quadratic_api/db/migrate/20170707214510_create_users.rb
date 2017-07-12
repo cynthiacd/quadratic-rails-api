@@ -9,7 +9,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.integer :mastery_plus_dbl_sq, default: 0
       t.integer :mastery_minus_dbl_sq, default: 0
       t.integer :mastery_diff_sq, default: 0
-      t.integer :mastery_primes, default: 0
+      t.integer :mastery_prime, default: 0
       t.integer :mastery_ones_and_zeros, default: 0
       t.integer :mastery_gcf, default: 0
 

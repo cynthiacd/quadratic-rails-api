@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712193655) do
+ActiveRecord::Schema.define(version: 20170712210022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,11 +34,12 @@ ActiveRecord::Schema.define(version: 20170712193655) do
     t.integer  "mastery_plus_dbl_sq",    default: 0
     t.integer  "mastery_minus_dbl_sq",   default: 0
     t.integer  "mastery_diff_sq",        default: 0
-    t.integer  "mastery_primes",         default: 0
+    t.integer  "mastery_prime",          default: 0
     t.integer  "mastery_ones_and_zeros", default: 0
     t.integer  "mastery_gcf",            default: 0
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.integer  "total_problems"
   end
 
 end
