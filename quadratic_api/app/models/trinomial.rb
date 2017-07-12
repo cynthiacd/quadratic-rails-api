@@ -9,14 +9,18 @@ class Trinomial < ApplicationRecord
   end
 
   def generate_random_trinomial
-    random_pattern = ["plus_plus",
-                      "minus_plus",
-                      "minus_minus",
-                      "plus_minus",
-                      "diff_sq",
-                      "plus_dbl_sq",
-                      "minus_dbl_sq",
-                      "gcf"].sample
+    random_pattern = [
+      "plus_plus",
+      "minus_plus",
+      "minus_minus",
+      "plus_minus",
+      "diff_sq",
+      "plus_dbl_sq",
+      "minus_dbl_sq",
+      "gcf",
+      "prime"
+    ].sample
+
     return self.generate_trinomial(random_pattern)
   end
 
@@ -141,16 +145,18 @@ class Trinomial < ApplicationRecord
     trinomial[:pattern] = "gcf"
     trinomial[:general_form] = general_form
     trinomial[:a] = a
-    trinomial[:b] = @b
-    trinomial[:c] = @c
+    # trinomial[:b] = @b
+    # trinomial[:c] = @c
 
     return trinomial
   end
 
-  def generate_primes
+  def generate_prime
+    # another way generate array of 30 known prime factors
     trinomial = self.generate_random_trinomial
     # will this work? or will there be some random cases where this still returns
     # a factorable trinomial
+    # another method - swap the signs?
     @b -= 3
     general_form = fix_signs("+ #{@b}x + #{@c}")
     # p general_form
@@ -190,6 +196,8 @@ class Trinomial < ApplicationRecord
   def generate_trinomial(pattern)
     case pattern
     when "plus_plus"
+      # self.pattern = pattern
+      # return self.generate_problem(sign1, sign2)
       return self.generate_plus_plus
     when "minus_plus"
       return self.generate_minus_plus
@@ -205,6 +213,8 @@ class Trinomial < ApplicationRecord
       return self.generate_minus_dbl_sq
     when "gcf"
       return self.generate_gcf
+    when "prime"
+      return self.generate_prime
     end
   end
 end
