@@ -38,6 +38,19 @@ class Trinomial < ApplicationRecord
   end
 
   def generate_custom_trinomial
+    user = self.user
+    report = user.generate_mastery_report
+    lowest = report.min_by { |pattern, level| level } #returns array of hashes with pattern and level
+    p lowest
+    return self.generate_trinomial(lowest[0].to_s)
+
+    # patterns_to_work_on = []
+    # report.each do |pattern, level|
+    #   if level < lowest[0]
+    #     patterns_to_work_on << pattern
+    #     lowest = level
+    #   end
+    # end
   end
 
   def generate_plus_plus
@@ -97,11 +110,12 @@ class Trinomial < ApplicationRecord
     self.root2 = -1* self.root1
     self.generate_b_and_c
     self.save
-
+    # diff_sq
     return {
       pattern: "diff_sq",
       general_form: "- #{self.root1.abs2}",
-      solution1: "=(x-#{self.root1})(x+#{self.root1})"
+      solution1: "=(x-#{self.root1})(x+#{self.root1})",
+      solution2: "=(x+#{self.root1})(x-#{self.root1})"
     }
   end
 
@@ -184,5 +198,26 @@ class Trinomial < ApplicationRecord
     end
 
     return expression
+  end
+
+  def generate_trinomial(pattern)
+    case pattern
+    when "plus_plus"
+      return self.generate_plus_plus
+    when "minus_plus"
+      return self.generate_minus_plus
+    when "minus_minus"
+      return self.generate_minus_minus
+    when "plus_minus"
+      return self.generate_plus_minus
+    when "diff_sq"
+      return self.generate_diff_squares
+    when "plus_dbl_sq"
+      return self.generate_plus_dbl_sq
+    when "minus_dbl_sq"
+      return self.generate_minus_dbl_sq
+    when "gcf"
+      return self.generate_gcf
+    end
   end
 end
