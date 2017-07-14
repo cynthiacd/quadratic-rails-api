@@ -35,6 +35,7 @@ class Trinomial < ApplicationRecord
 
   def generate_trinomial(pattern)
     self.pattern = pattern
+
     case pattern
     when "plus_plus"
       return self.generate( { sign1: "+", sign2: "+" } )
@@ -51,10 +52,10 @@ class Trinomial < ApplicationRecord
     when "plus_minus"
       self.root2 > self.root1 ? self.root1 *= -1 : self.root2 *= -1
       return self.generate( { sign1: "+", sign2: "-" } )
-
-    when "diff_sq"
-      self.root2 = -1* self.root1
-      return self.generate_diff_squares
+    #
+    # when "diff_sq"
+    #   self.root2 = -1* self.root1
+    #   return self.generate_diff_squares
 
     when "plus_dbl_sq"
       self.root2 = self.root1
@@ -65,11 +66,11 @@ class Trinomial < ApplicationRecord
       self.root2 = self.root1
       return self.generate( { sign1: "-", sign2: "+" } )
 
-    when "gcf"
-      return self.generate_gcf
+    # when "gcf"
+    #   return self.generate_gcf
 
-    when "prime"
-      return self.generate_prime
+    # when "prime"
+    #   return self.generate_prime
     end
   end
 
@@ -98,6 +99,7 @@ class Trinomial < ApplicationRecord
   # # this is tricky - really need a way to geneate all general forms and then have signs fixed ...
   def generate_gcf
     trinomial = self.generate_random_trinomial
+    # p trinomial
 
     a = rand(2..5)
     @b *= a
@@ -107,6 +109,8 @@ class Trinomial < ApplicationRecord
 
     trinomial[:solution1][1] = "#{a}("
     trinomial[:solution2][1]= "#{a}("
+    # var str = "Hello World";
+    # str = str.slice(0, 3) + str.slice(4);
 
     trinomial[:pattern] = "gcf"
     trinomial[:general_form] = general_form
