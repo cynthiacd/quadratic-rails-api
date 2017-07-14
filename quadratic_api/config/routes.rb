@@ -5,5 +5,6 @@ Rails.application.routes.draw do
 
   post "trinomials/check", to: "users#check_solution", as: "check_solution"
   get "trinomials", to: "trinomials#index", as: "trinomials"
+  get "trinomial", to: "users#get_new_trinomial", as: "trinomial"
   get "users/report", to: "users#get_report", as: "user_report"
 end

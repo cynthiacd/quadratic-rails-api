@@ -8,7 +8,7 @@ class Trinomial < ApplicationRecord
     self.save
   end
 
-  def generate_random_trinomial
+  def generate_random_pattern
     random_pattern = [
       "plus_plus",
       "minus_plus",
@@ -47,19 +47,6 @@ class Trinomial < ApplicationRecord
     when "plus_minus"
       self.root2 > self.root1 ? self.root1 *= -1 : self.root2 *= -1
       return self.generate( { sign1: "+", sign2: "-" } )
-    #
-    # when "diff_sq"
-    #   self.root2 = -1* self.root1
-    #   return self.generate_diff_squares
-    #
-    # when "plus_dbl_sq"
-    #   self.root2 = self.root1
-    #   return self.generate( { sign1: "+", sign2: "+" } )
-    #
-    # when "minus_dbl_sq"
-    #   self.root1 *= -1
-    #   self.root2 = self.root1
-    #   return self.generate( { sign1: "-", sign2: "+" } )
 
     # when "gcf"
     #   return self.generate_gcf
@@ -131,19 +118,5 @@ class Trinomial < ApplicationRecord
   # end
   #
   # def generate_a_greater_one
-  # end
-
-  # def generate_solutions
-  #   @solution1 = self.fix_signs("=(x+#{self.root1})(x+#{self.root2})")
-  #   @solution2 = self.fix_signs("=(x+#{self.root2})(x+#{self.root1})")
-  # end
-
-  # how do I get make this method work to fix all signs for all expressions
-  # def fix_signs(expression)
-  #   until expression == expression.sub("+-", "-") && expression == expression.sub("+ -", "- ")
-  #     expression = expression.sub("+-", "-")
-  #     expression = expression.sub("+ -", "- ")
-  #   end
-  #   return expression
   # end
 end

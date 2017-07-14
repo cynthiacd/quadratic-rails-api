@@ -7,7 +7,7 @@ class SpecialTrinomial < ApplicationRecord
     self.save
   end
 
-  def generate_random_special
+  def generate_random_pattern
     random_pattern = [
       "diff_sq",
       "plus_dbl_sq",
