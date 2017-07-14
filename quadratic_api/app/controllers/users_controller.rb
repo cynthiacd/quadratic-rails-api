@@ -18,4 +18,11 @@ class UsersController < ApplicationController
     # provide API response
     render status: :ok, json: { message: "Ready for next problem"}
   end
+
+  def get_report
+    user = User.find(1)
+    report = user.generate_mastery_report_for_diagram
+
+    render json: report, status: :ok 
+  end
 end
