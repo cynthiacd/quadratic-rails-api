@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   def get_report
     user = User.find(1)
-    report = user.generate_mastery_report_for_diagram
+    report = user.generate_mastery_report
 
     render json: report, status: :ok
   end
