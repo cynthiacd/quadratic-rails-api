@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   # following convention trinomials should be pluar but you are really only sending one problem...
 
-  post "trinomials/check", to: "users#check_solution", as: "check_solution"
-  get "trinomials", to: "trinomials#index", as: "trinomials"
+  post "trinomial/check", to: "users#check_solution", as: "check_solution"
+  # get "trinomials", to: "trinomials#index", as: "trinomials"
   get "trinomial", to: "users#get_new_trinomial", as: "trinomial"
-  get "users/report", to: "users#get_report", as: "user_report"
+  get "user/report", to: "users#get_report", as: "user_report"
 end

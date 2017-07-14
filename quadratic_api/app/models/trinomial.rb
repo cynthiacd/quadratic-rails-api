@@ -4,7 +4,9 @@ class Trinomial < ApplicationRecord
 
   def create_roots
     self.root1 ||= rand(1..13)
-    self.root2 ||= rand(1..13)
+    until self.root1 != self.root2
+      self.root2 ||= rand(1..13)
+    end
     self.save
   end
 
@@ -62,6 +64,7 @@ class Trinomial < ApplicationRecord
 
     return {
       pattern: self.pattern,
+      type: "standard",
       general_form: "#{signs[:sign1]} #{@b.abs}x #{signs[:sign2]} #{@c.abs}",
       solution1: "=(x#{signs[:sign1]}#{self.root1.abs})(x#{signs[:sign2]}#{self.root2.abs})",
       solution2: "=(x#{signs[:sign2]}#{self.root2.abs})(x#{signs[:sign1]}#{self.root1.abs})",

@@ -35,6 +35,7 @@ class SpecialTrinomial < ApplicationRecord
   def generate(signs)
     return {
       pattern: self.pattern,
+      type: "special",
       general_form: "#{signs[:sign1]} #{2 * self.root1.abs}x #{signs[:sign2]} #{self.root1.abs2}",
       solution1: "=(x#{signs[:sign1]}#{self.root1.abs})(x#{signs[:sign1]}#{self.root1.abs})",
       solution2: "=(x#{signs[:sign1]}#{self.root1.abs})^2",
@@ -45,6 +46,7 @@ class SpecialTrinomial < ApplicationRecord
   def generate_diff_squares
     return {
       pattern: self.pattern,
+      type: "special",
       general_form: "- #{self.root1.abs2}",
       solution1: "=(x-#{self.root1})(x+#{self.root1})",
       solution2: "=(x+#{self.root1})(x-#{self.root1})",
