@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20170714191611) do
   create_table "special_trinomials", force: :cascade do |t|
     t.integer  "root1"
     t.integer  "root2"
+    t.string   "pattern"
     t.boolean  "solution_submitted", default: false
     t.integer  "user_id",            default: 1
     t.datetime "created_at",                         null: false

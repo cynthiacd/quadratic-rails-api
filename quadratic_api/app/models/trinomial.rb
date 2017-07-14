@@ -14,11 +14,6 @@ class Trinomial < ApplicationRecord
       "minus_plus",
       "minus_minus",
       "plus_minus"
-      # "diff_sq",
-      # "plus_dbl_sq",
-      # "minus_dbl_sq",
-      # "gcf",
-      # "prime"
     ].sample
 
     return self.generate_trinomial(random_pattern)
@@ -92,15 +87,7 @@ class Trinomial < ApplicationRecord
     @c = self.root1 * self.root2
   end
   #
-  # def generate_diff_squares
-  #   return {
-  #     pattern: self.pattern,
-  #     general_form: "- #{self.root1.abs2}",
-  #     solution1: "=(x-#{self.root1})(x+#{self.root1})",
-  #     solution2: "=(x+#{self.root1})(x-#{self.root1})",
-  #     id: self.id
-  #   }
-  # end
+
 
   # # this is tricky - really need a way to geneate all general forms and then have signs fixed ...
   # def generate_gcf
