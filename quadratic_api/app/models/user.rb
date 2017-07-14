@@ -35,10 +35,10 @@ class User < ApplicationRecord
     # p problems_submitted
 
     return {
-      plus_plus: ( ( self.mastery_plus_plus.to_f / problems_submitted.where(pattern: "plus_plus").count ) * 100 ).to_i
-    #   minus_plus: self.mastery_minus_plus,
-    #   minus_minus: self.mastery_minus_minus,
-    #   plus_minus: self.mastery_plus_minus,
+      plus_plus: ( ( self.mastery_plus_plus.to_f / problems_submitted.where(pattern: "plus_plus").count ) * 100 ).to_i,
+      minus_plus: ( ( self.mastery_minus_plus.to_f / problems_submitted.where(pattern: "minus_plus").count ) * 100 ).to_i,
+      minus_minus: ( ( self.mastery_minus_minus.to_f / problems_submitted.where(pattern: "minus_minus").count ) * 100 ).to_i,
+      plus_minus: ( ( self.mastery_plus_minus.to_f / problems_submitted.where(pattern: "plus_minus").count ) * 100 ).to_i
     #   minus_dbl_sq: self.mastery_minus_dbl_sq,
     #   plus_dbl_sq: self.mastery_plus_dbl_sq,
     #   diff_sq: self.mastery_diff_sq,
