@@ -5,8 +5,12 @@ class User < ApplicationRecord
   def update_mastery_levels(problem_info)
     ## add total problems as col for user table
     # self.total_problems += 1
+    trinomial = self.trinomials.find_by(id: problem_info["id"])
+    trinomial.solution_submitted = true
+    trinomial.save
+
     self.total_problems += 1
-    pattern = problem_info["pattern"]
+    pattern = "mastery_" + problem_info["pattern"]
     self[pattern] += problem_info["score"]
     self.save
   end
@@ -27,5 +31,16 @@ class User < ApplicationRecord
   end
 
   def generate_mastery_report_for_diagram
+    return {
+      plus_plus: ( self.mastery_plus_plus / self.trinomials.where),
+      minus_plus: self.mastery_minus_plus,
+      minus_minus: self.mastery_minus_minus,
+      plus_minus: self.mastery_plus_minus,
+      minus_dbl_sq: self.mastery_minus_dbl_sq,
+      plus_dbl_sq: self.mastery_plus_dbl_sq,
+      diff_sq: self.mastery_diff_sq,
+      gcf: self.mastery_gcf,
+      total_problems_attempted: self.total_problems
+    }
   end
 end

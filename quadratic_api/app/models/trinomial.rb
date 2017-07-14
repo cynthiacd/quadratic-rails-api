@@ -13,12 +13,12 @@ class Trinomial < ApplicationRecord
       "plus_plus",
       "minus_plus",
       "minus_minus",
-      "plus_minus",
-      "diff_sq",
-      "plus_dbl_sq",
-      "minus_dbl_sq",
-      "gcf",
-      "prime"
+      "plus_minus"
+      # "diff_sq",
+      # "plus_dbl_sq",
+      # "minus_dbl_sq",
+      # "gcf",
+      # "prime"
     ].sample
 
     return self.generate_trinomial(random_pattern)
@@ -56,15 +56,15 @@ class Trinomial < ApplicationRecord
     # when "diff_sq"
     #   self.root2 = -1* self.root1
     #   return self.generate_diff_squares
-
-    when "plus_dbl_sq"
-      self.root2 = self.root1
-      return self.generate( { sign1: "+", sign2: "+" } )
-
-    when "minus_dbl_sq"
-      self.root1 *= -1
-      self.root2 = self.root1
-      return self.generate( { sign1: "-", sign2: "+" } )
+    #
+    # when "plus_dbl_sq"
+    #   self.root2 = self.root1
+    #   return self.generate( { sign1: "+", sign2: "+" } )
+    #
+    # when "minus_dbl_sq"
+    #   self.root1 *= -1
+    #   self.root2 = self.root1
+    #   return self.generate( { sign1: "-", sign2: "+" } )
 
     # when "gcf"
     #   return self.generate_gcf
@@ -83,56 +83,58 @@ class Trinomial < ApplicationRecord
       pattern: self.pattern,
       general_form: "#{signs[:sign1]} #{@b.abs}x #{signs[:sign2]} #{@c.abs}",
       solution1: @solution1,
-      solution2: @solution2
+      solution2: @solution2,
+      id: self.id
     }
-  end
-
-  def generate_diff_squares
-    return {
-      pattern: self.pattern,
-      general_form: "- #{self.root1.abs2}",
-      solution1: "=(x-#{self.root1})(x+#{self.root1})",
-      solution2: "=(x+#{self.root1})(x-#{self.root1})"
-    }
-  end
-
-  # # this is tricky - really need a way to geneate all general forms and then have signs fixed ...
-  def generate_gcf
-    trinomial = self.generate_random_trinomial
-    # p trinomial
-
-    a = rand(2..5)
-    @b *= a
-    @c *= a
-
-    general_form = fix_signs("+ #{@b}x + #{@c}")
-
-    trinomial[:solution1][1] = "#{a}("
-    trinomial[:solution2][1]= "#{a}("
-    # var str = "Hello World";
-    # str = str.slice(0, 3) + str.slice(4);
-
-    trinomial[:pattern] = "gcf"
-    trinomial[:general_form] = general_form
-    trinomial[:a] = a
-
-    return trinomial
   end
   #
-  def generate_prime
-    # another way generate array of x known prime trinomials and call one # another method - swap the signs?
-    trinomial = self.generate_random_trinomial
+  # def generate_diff_squares
+  #   return {
+  #     pattern: self.pattern,
+  #     general_form: "- #{self.root1.abs2}",
+  #     solution1: "=(x-#{self.root1})(x+#{self.root1})",
+  #     solution2: "=(x+#{self.root1})(x-#{self.root1})",
+  #     id: self.id
+  #   }
+  # end
 
-    # will this work? or will there be some random cases where this still returns
-    # a factorable trinomial
-    @b -= 3
-    general_form = fix_signs("+ #{@b}x + #{@c}")
-
-    trinomial[:general_form] = general_form
-    trinomial[:solution1]="prime"
-    trinomial[:solution2]="NA"
-    return trinomial
-  end
+  # # this is tricky - really need a way to geneate all general forms and then have signs fixed ...
+  # def generate_gcf
+  #   trinomial = self.generate_random_trinomial
+  #   # p trinomial
+  #
+  #   a = rand(2..5)
+  #   @b *= a
+  #   @c *= a
+  #
+  #   general_form = fix_signs("+ #{@b}x + #{@c}")
+  #
+  #   trinomial[:solution1][1] = "#{a}("
+  #   trinomial[:solution2][1]= "#{a}("
+  #   # var str = "Hello World";
+  #   # str = str.slice(0, 3) + str.slice(4);
+  #
+  #   trinomial[:pattern] = "gcf"
+  #   trinomial[:general_form] = general_form
+  #   trinomial[:a] = a
+  #
+  #   return trinomial
+  # end
+  # #
+  # def generate_prime
+  #   # another way generate array of x known prime trinomials and call one # another method - swap the signs?
+  #   trinomial = self.generate_random_trinomial
+  #
+  #   # will this work? or will there be some random cases where this still returns
+  #   # a factorable trinomial
+  #   @b -= 3
+  #   general_form = fix_signs("+ #{@b}x + #{@c}")
+  #
+  #   trinomial[:general_form] = general_form
+  #   trinomial[:solution1]="prime"
+  #   trinomial[:solution2]="NA"
+  #   return trinomial
+  # end
 
   # def generate_zeros_and_ones
   # end
