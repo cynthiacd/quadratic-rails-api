@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170714191611) do
+ActiveRecord::Schema.define(version: 20170714204451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,15 @@ ActiveRecord::Schema.define(version: 20170714191611) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.integer  "total_problems",         default: 0
+    t.integer  "plus_plus_count",        default: 0
+    t.integer  "minus_plus_count",       default: 0
+    t.integer  "minus_minus_count",      default: 0
+    t.integer  "plus_minus_count",       default: 0
+    t.integer  "plus_dbl_sq_count",      default: 0
+    t.integer  "minus_dbl_sq_count",     default: 0
+    t.integer  "diff_sq_count",          default: 0
+    t.integer  "prime_count",            default: 0
+    t.integer  "gcf_count",              default: 0
   end
 
 end

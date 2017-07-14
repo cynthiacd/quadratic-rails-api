@@ -4,8 +4,8 @@ class Trinomial < ApplicationRecord
 
   def create_roots
     self.root1 ||= rand(1..13)
-    until self.root1 != self.root2
-      self.root2 ||= rand(1..13)
+    until self.root1 != self.root2 && self.root2 != nil
+      self.root2 = rand(1..13)
     end
     self.save
   end

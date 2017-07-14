@@ -19,16 +19,27 @@ class User < ApplicationRecord
   def update_mastery_levels(problem_info)
     ## add total problems as col for user table
     # self.total_problems += 1
-    if problem_info["type"] == "standard"
-      trinomial = self.trinomials.find_by(id: problem_info["id"])
-    elsif problem_info["type"] == "special"
-      trinomial = self.special_trinomials.find_by(id: problem_info["id"])
-    end
+    # if problem_info["type"] == "standard"
+    #   trinomial = self.trinomials.find_by(id: problem_info["id"])
+    # elsif problem_info["type"] == "special"
+    #   trinomial = self.special_trinomials.find_by(id: problem_info["id"])
+    # end
+    #
+    # trinomial.solution_submitted = true
+    # trinomial.save
 
-    trinomial.solution_submitted = true
-    trinomial.save
+    # the other option to tracking problems completed by pattern/total is
+    # having table entries for the pattern count
+    # could also drop relationship between user and trinomials
+    # plus side to this - get ride of conditionals for trinomial type
+    # able to generate report with only user table entries
+
+
 
     self.total_problems += 1
+    pattern_count = problem_info["pattern"] + "_count"
+    self[pattern_count] += 1
+
     pattern = "mastery_" + problem_info["pattern"]
     self[pattern] += problem_info["score"]
     self.save

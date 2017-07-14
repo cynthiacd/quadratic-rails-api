@@ -12,7 +12,6 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.integer :mastery_prime, default: 0
       t.integer :mastery_ones_and_zeros, default: 0
       t.integer :mastery_gcf, default: 0
-
       t.timestamps
     end
   end
