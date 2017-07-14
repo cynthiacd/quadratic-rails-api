@@ -76,16 +76,20 @@ class Trinomial < ApplicationRecord
 
   def generate(signs)
     self.generate_b_and_c
-    self.generate_solutions
     self.save
 
     return {
       pattern: self.pattern,
       general_form: "#{signs[:sign1]} #{@b.abs}x #{signs[:sign2]} #{@c.abs}",
-      solution1: @solution1,
-      solution2: @solution2,
+      solution1: "=(x#{signs[:sign1]}#{self.root1.abs})(x#{signs[:sign2]}#{self.root2.abs})",
+      solution2: "=(x#{signs[:sign2]}#{self.root2.abs})(x#{signs[:sign1]}#{self.root1.abs})",
       id: self.id
     }
+  end
+
+  def generate_b_and_c
+    @b = self.root1 + self.root2
+    @c = self.root1 * self.root2
   end
   #
   # def generate_diff_squares
@@ -142,22 +146,17 @@ class Trinomial < ApplicationRecord
   # def generate_a_greater_one
   # end
 
-  def generate_b_and_c
-    @b = self.root1 + self.root2
-    @c = self.root1 * self.root2
-  end
-
-  def generate_solutions
-    @solution1 = self.fix_signs("=(x+#{self.root1})(x+#{self.root2})")
-    @solution2 = self.fix_signs("=(x+#{self.root2})(x+#{self.root1})")
-  end
+  # def generate_solutions
+  #   @solution1 = self.fix_signs("=(x+#{self.root1})(x+#{self.root2})")
+  #   @solution2 = self.fix_signs("=(x+#{self.root2})(x+#{self.root1})")
+  # end
 
   # how do I get make this method work to fix all signs for all expressions
-  def fix_signs(expression)
-    until expression == expression.sub("+-", "-") && expression == expression.sub("+ -", "- ")
-      expression = expression.sub("+-", "-")
-      expression = expression.sub("+ -", "- ")
-    end
-    return expression
-  end
+  # def fix_signs(expression)
+  #   until expression == expression.sub("+-", "-") && expression == expression.sub("+ -", "- ")
+  #     expression = expression.sub("+-", "-")
+  #     expression = expression.sub("+ -", "- ")
+  #   end
+  #   return expression
+  # end
 end
