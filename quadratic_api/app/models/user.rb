@@ -31,16 +31,19 @@ class User < ApplicationRecord
   end
 
   def generate_mastery_report_for_diagram
+    problems_submitted = self.trinomials.where(solution_submitted: true)
+    # p problems_submitted
+
     return {
-      plus_plus: ( self.mastery_plus_plus / self.trinomials.where),
-      minus_plus: self.mastery_minus_plus,
-      minus_minus: self.mastery_minus_minus,
-      plus_minus: self.mastery_plus_minus,
-      minus_dbl_sq: self.mastery_minus_dbl_sq,
-      plus_dbl_sq: self.mastery_plus_dbl_sq,
-      diff_sq: self.mastery_diff_sq,
-      gcf: self.mastery_gcf,
-      total_problems_attempted: self.total_problems
+      plus_plus: ( ( self.mastery_plus_plus.to_f / problems_submitted.where(pattern: "plus_plus").count ) * 100 ).to_i
+    #   minus_plus: self.mastery_minus_plus,
+    #   minus_minus: self.mastery_minus_minus,
+    #   plus_minus: self.mastery_plus_minus,
+    #   minus_dbl_sq: self.mastery_minus_dbl_sq,
+    #   plus_dbl_sq: self.mastery_plus_dbl_sq,
+    #   diff_sq: self.mastery_diff_sq,
+    #   gcf: self.mastery_gcf,
+    #   total_problems_attempted: self.total_problems
     }
   end
 end
