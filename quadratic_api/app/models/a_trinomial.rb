@@ -1,38 +1,38 @@
 class ATrinomial < ApplicationRecord
   belongs_to :user
-  after_initialize :create_roots
+  after_initialize :create_roots_and_a
 
-  def create_roots
+  def create_roots_and_a
+    # do you want this to be a db value?
     @a = rand(2..7)
+    # this will generate a zero root ...
     self.root1 = rand(-10..10)
     self.root2 = rand(-10..10)
-
-    # what would the factors look like?
-    # should I rename roots? - these are not true roots but are mang of the roots
-    # (ax+root1)(x+root2)
-    # no factors of a ... (a1x+root1)(a2x+root2)
     self.save
   end
 
-  def generate_ac_trinomial
+  # for this I don't care about the sign patterns so we can generate all four sign patterns
+  # and not have to id them
+  def generate_random_pattern
     b = (@a * self.root2 + self.root1).to_i
     c = (self.root1 * self.root2).to_i
 
     return {
-      pattern: "a_>_1",
-      type: "a_>_1",
+      pattern: "a>1",
+      type: "a>1",
       a: @a,
-      general_form: "+ #{b}x + #{c}",
-      solution1: "=(#{@a}x+#{self.root1})(x+#{self.root2})",
-      solution2: "=(x+#{self.root2})(#{@a}x+#{self.root1})",
+      general_form: fix_signs("+ #{b}x + #{c}"),
+      solution1: fix_signs("=(#{@a}x+#{self.root1})(x+#{self.root2})"),
+      solution2: fix_signs("=(x+#{self.root2})(#{@a}x+#{self.root1})"),
       id: self.id
     }
   end
-end
 
-# what about sings should you flip a coint to determine if a root should become postive or negative?
-# going to have to do another case statement
-# sign = ["+", "-"].sample
-# self.root2 *= -1 if sign == "-"
-# will genreate a plus_minus or minus_minus pattern but I don't really care on these ones
-# (ax+root1)(x-root2)
+  def fix_signs(expression)
+    until expression == expression.sub("+-", "-") && expression == expression.sub("+ -", "- ")
+      expression = expression.sub("+-", "-")
+      expression = expression.sub("+ -", "- ")
+    end
+    return expression
+  end
+end

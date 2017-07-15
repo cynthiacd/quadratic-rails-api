@@ -9,5 +9,6 @@ class AddColsToUser < ActiveRecord::Migration[5.0]
     add_column :users, :diff_sq_count, :integer, default: 0
     add_column :users, :prime_count, :integer, default: 0
     add_column :users, :gcf_count, :integer, default: 0
+    add_column :users, :a_greater_one_count, :integer, default: 0
   end
 end

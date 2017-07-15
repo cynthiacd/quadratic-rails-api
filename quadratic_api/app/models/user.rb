@@ -4,13 +4,15 @@ class User < ApplicationRecord
   has_many :special_trinomials
 
   def get_trinomial
-    type = ["trinomial", "special"].sample
+    type = ["trinomial", "special", "a>1"].sample
 
     case type
       when "trinomial"
         trinomial = Trinomial.new
       when "special"
         trinomial = SpecialTrinomial.new
+      when "a>1"
+        trinomial = ATrinomial.new
     end
 
     return trinomial.generate_random_pattern

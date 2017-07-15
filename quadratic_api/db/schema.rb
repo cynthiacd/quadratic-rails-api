@@ -16,62 +16,54 @@ ActiveRecord::Schema.define(version: 20170715172451) do
   enable_extension "plpgsql"
 
   create_table "a_trinomials", force: :cascade do |t|
-    t.float    "root1"
-    t.float    "root2"
-    t.string   "pattern"
-    t.boolean  "solution_submitted", default: false
-    t.integer  "user_id",            default: 1
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.index ["user_id"], name: "index_a_trinomials_on_user_id", using: :btree
+    t.integer  "root1"
+    t.integer  "root2"
+    t.string   "pattern",    default: "a_greater_one"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "special_trinomials", force: :cascade do |t|
     t.integer  "root1"
     t.integer  "root2"
     t.string   "pattern"
-    t.boolean  "solution_submitted", default: false
-    t.integer  "user_id",            default: 1
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.index ["user_id"], name: "index_special_trinomials_on_user_id", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "trinomials", force: :cascade do |t|
     t.integer  "root1"
     t.integer  "root2"
-    t.boolean  "solution_submitted", default: false
-    t.integer  "user_id",            default: 1
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "pattern"
-    t.index ["user_id"], name: "index_trinomials_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
-    t.integer  "mastery_plus_plus",      default: 0
-    t.integer  "mastery_minus_plus",     default: 0
-    t.integer  "mastery_minus_minus",    default: 0
-    t.integer  "mastery_plus_minus",     default: 0
-    t.integer  "mastery_plus_dbl_sq",    default: 0
-    t.integer  "mastery_minus_dbl_sq",   default: 0
-    t.integer  "mastery_diff_sq",        default: 0
-    t.integer  "mastery_prime",          default: 0
-    t.integer  "mastery_ones_and_zeros", default: 0
-    t.integer  "mastery_gcf",            default: 0
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "total_problems",         default: 0
-    t.integer  "plus_plus_count",        default: 0
-    t.integer  "minus_plus_count",       default: 0
-    t.integer  "minus_minus_count",      default: 0
-    t.integer  "plus_minus_count",       default: 0
-    t.integer  "plus_dbl_sq_count",      default: 0
-    t.integer  "minus_dbl_sq_count",     default: 0
-    t.integer  "diff_sq_count",          default: 0
-    t.integer  "prime_count",            default: 0
-    t.integer  "gcf_count",              default: 0
+    t.integer  "plus_plus_mastery",     default: 0
+    t.integer  "minus_plus_mastery",    default: 0
+    t.integer  "minus_minus_mastery",   default: 0
+    t.integer  "plus_minus_mastery",    default: 0
+    t.integer  "plus_dbl_sq_mastery",   default: 0
+    t.integer  "minus_dbl_sq_mastery",  default: 0
+    t.integer  "diff_sq_mastery",       default: 0
+    t.integer  "prime_mastery",         default: 0
+    t.integer  "a_greater_one_mastery", default: 0
+    t.integer  "gcf_mastery",           default: 0
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "total_problems",        default: 0
+    t.integer  "plus_plus_count",       default: 0
+    t.integer  "minus_plus_count",      default: 0
+    t.integer  "minus_minus_count",     default: 0
+    t.integer  "plus_minus_count",      default: 0
+    t.integer  "plus_dbl_sq_count",     default: 0
+    t.integer  "minus_dbl_sq_count",    default: 0
+    t.integer  "diff_sq_count",         default: 0
+    t.integer  "prime_count",           default: 0
+    t.integer  "gcf_count",             default: 0
+    t.integer  "a_greater_one_count",   default: 0
   end
 
 end
