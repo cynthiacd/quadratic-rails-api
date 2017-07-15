@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170714204451) do
+ActiveRecord::Schema.define(version: 20170715172451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "a_trinomials", force: :cascade do |t|
+    t.float    "root1"
+    t.float    "root2"
+    t.string   "pattern"
+    t.boolean  "solution_submitted", default: false
+    t.integer  "user_id",            default: 1
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["user_id"], name: "index_a_trinomials_on_user_id", using: :btree
+  end
 
   create_table "special_trinomials", force: :cascade do |t|
     t.integer  "root1"
