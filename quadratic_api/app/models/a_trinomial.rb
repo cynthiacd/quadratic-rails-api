@@ -1,5 +1,4 @@
 class ATrinomial < ApplicationRecord
-  belongs_to :user
   after_initialize :create_roots_and_a
 
   def create_roots_and_a
@@ -18,8 +17,8 @@ class ATrinomial < ApplicationRecord
     c = (self.root1 * self.root2).to_i
 
     return {
-      pattern: "a>1",
-      type: "a>1",
+      pattern: self.pattern,
+      type: self.pattern,
       a: @a,
       general_form: fix_signs("+ #{b}x + #{c}"),
       solution1: fix_signs("=(#{@a}x+#{self.root1})(x+#{self.root2})"),

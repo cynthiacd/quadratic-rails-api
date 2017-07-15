@@ -1,5 +1,4 @@
 class SpecialTrinomial < ApplicationRecord
-  belongs_to :user
   after_initialize :create_root
 
   def create_root

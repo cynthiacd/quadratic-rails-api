@@ -1,22 +1,20 @@
 class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
-  has_many :trinomials
-  has_many :special_trinomials
 
-  def get_trinomial
-    type = ["trinomial", "special", "a>1"].sample
-
-    case type
-      when "trinomial"
-        trinomial = Trinomial.new
-      when "special"
-        trinomial = SpecialTrinomial.new
-      when "a>1"
-        trinomial = ATrinomial.new
-    end
-
-    return trinomial.generate_random_pattern
-  end
+  # def get_trinomial
+  #   type = ["trinomial", "special", "a>1"].sample
+  #
+  #   case type
+  #     when "trinomial"
+  #       trinomial = Trinomial.new
+  #     when "special"
+  #       trinomial = SpecialTrinomial.new
+  #     when "a>1"
+  #       trinomial = ATrinomial.new
+  #   end
+  #
+  #   return trinomial.generate_random_pattern
+  # end
 
   def update_mastery_levels(problem_info)
     ## add total problems as col for user table

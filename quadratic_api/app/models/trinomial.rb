@@ -1,5 +1,4 @@
 class Trinomial < ApplicationRecord
-  belongs_to :user
   after_initialize :create_roots
 
   def create_roots
