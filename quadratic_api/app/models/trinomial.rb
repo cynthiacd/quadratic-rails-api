@@ -2,8 +2,9 @@ class Trinomial < ApplicationRecord
   after_initialize :create_roots
 
   def create_roots
-    self.root1 ||= rand(1..13)
-    until self.root1 != self.root2 && self.root2 != nil
+    self.root1 ||= rand(2..13)
+
+    until self.root1 != self.root2 && self.root2 != nil && self.root1 > self.root2
       self.root2 = rand(1..13)
     end
     self.save
@@ -42,31 +43,26 @@ class Trinomial < ApplicationRecord
       return self.generate( { sign1: "-", sign2: "+" } )
 
     when "minus_minus"
-      self.root1 > self.root2 ? self.root1 *= -1 : self.root2 *= -1
+      self.root1 *= -1
       return self.generate( { sign1: "-", sign2: "-" } )
 
     when "plus_minus"
-      self.root2 > self.root1 ? self.root1 *= -1 : self.root2 *= -1
+      self.root2 *= -1
       return self.generate( { sign1: "+", sign2: "-" } )
-
-    # when "gcf"
-    #   return self.generate_gcf
-
-    # when "prime"
-    #   return self.generate_prime
     end
   end
 
   def generate(signs)
     self.generate_b_and_c
+    # self.generate_solutions
     self.save
 
     return {
       pattern: self.pattern,
       type: "standard",
-      general_form: "#{signs[:sign1]} #{@b.abs}x #{signs[:sign2]} #{@c.abs}",
-      solution1: "=(x#{signs[:sign1]}#{self.root1.abs})(x#{signs[:sign2]}#{self.root2.abs})",
-      solution2: "=(x#{signs[:sign2]}#{self.root2.abs})(x#{signs[:sign1]}#{self.root1.abs})",
+      general_form: fix_signs("+ #{@b}x + #{@c}"),
+      solution1: fix_signs("=(x+#{self.root1})(x+#{self.root2})"),
+      solution2: fix_signs("=(x+#{self.root2})(#{@a}x+#{self.root1})"),
       id: self.id
     }
   end
@@ -75,8 +71,14 @@ class Trinomial < ApplicationRecord
     @b = self.root1 + self.root2
     @c = self.root1 * self.root2
   end
-  #
 
+  def fix_signs(expression)
+    until expression == expression.sub("+-", "-") && expression == expression.sub("+ -", "- ")
+      expression = expression.sub("+-", "-")
+      expression = expression.sub("+ -", "- ")
+    end
+    return expression
+  end
 
   # # this is tricky - really need a way to geneate all general forms and then have signs fixed ...
   # def generate_gcf

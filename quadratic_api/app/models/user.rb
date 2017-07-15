@@ -27,17 +27,17 @@ class User < ApplicationRecord
     self.save
   end
 
+  # you could divide by 10 - so 100% correlates with a score of +10
   def generate_mastery_report
+    plus_plus_level = ((self.plus_plus_mastery / 10.0) * 100).to_i #if self.plus_plus_count > 5
+    minus_plus_level = ((self.minus_plus_mastery / 10.0) * 100).to_i #if self.minus_plus_count > 5
+    plus_minus_level = ((self.plus_minus_mastery / 10.0) * 100).to_i #if self.plus_minus_count > 5
+    minus_minus_level = ((self.minus_minus_mastery / 10.0) * 100).to_i #if self.minus_minus_count > 5
 
-    plus_plus_level = ((self.plus_plus_mastery.to_f / self.plus_plus_count) * 100).round(2) if self.plus_plus_count > 5
-    minus_plus_level = ((self.minus_plus_mastery.to_f / self.minus_plus_count) * 100).round(2) if self.minus_plus_count != 0
-    plus_minus_level = ((self.plus_minus_mastery.to_f / self.plus_minus_count) * 100).round(2) if self.plus_minus_count != 0
-    minus_minus_level = ((self.minus_minus_mastery.to_f / self.minus_minus_count) * 100).round(2) if self.minus_minus_count != 0
-
-    plus_dbl_sq_level = ((self.plus_dbl_sq_mastery.to_f / self.plus_dbl_sq_count) * 100).round(2) if self.plus_dbl_sq_count != 0
-    minus_dbl_sq_level = ((self.minus_dbl_sq_mastery.to_f / self.minus_dbl_sq_count) * 100 ).round(2) if self.minus_dbl_sq_count != 0
-    diff_sq_level = ((self.diff_sq_mastery.to_f / self.diff_sq_count) * 100).round(2) if self.diff_sq_count != 0
-    a_greater_one_level = ((self.a_greater_one_mastery.to_f / self.a_greater_one_count) * 100).round(2) if self.a_greater_one_count != 0
+    plus_dbl_sq_level = ((self.plus_dbl_sq_mastery / 10.0) * 100).to_i #if self.plus_dbl_sq_count > 5
+    minus_dbl_sq_level = ((self.minus_dbl_sq_mastery / 10.0) * 100 ).to_i #if self.minus_dbl_sq_count > 5
+    diff_sq_level = ((self.diff_sq_mastery / 10.0) * 100).to_i #if self.diff_sq_count > 5
+    a_greater_one_level = ((self.a_greater_one_mastery / 10.0) * 100).to_i #if self.a_greater_one_count > 5
 
     return {
       plus_plus: plus_plus_level,
