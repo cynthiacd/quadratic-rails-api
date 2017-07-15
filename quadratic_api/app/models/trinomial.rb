@@ -90,11 +90,6 @@ class Trinomial < ApplicationRecord
   #
   #   general_form = fix_signs("+ #{@b}x + #{@c}")
   #
-  #   trinomial[:solution1][1] = "#{a}("
-  #   trinomial[:solution2][1]= "#{a}("
-  #   # var str = "Hello World";
-  #   # str = str.slice(0, 3) + str.slice(4);
-  #
   #   trinomial[:pattern] = "gcf"
   #   trinomial[:general_form] = general_form
   #   trinomial[:a] = a

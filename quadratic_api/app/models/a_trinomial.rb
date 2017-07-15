@@ -4,8 +4,8 @@ class ATrinomial < ApplicationRecord
 
   def create_roots
     @a = rand(2..7)
-    self.root1 = rand(1..10) 
-    self.root2 = rand(1..10)
+    self.root1 = rand(-10..10)
+    self.root2 = rand(-10..10)
 
     # what would the factors look like?
     # should I rename roots? - these are not true roots but are mang of the roots
