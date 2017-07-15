@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   def get_new_trinomial
+    p params
     user = User.find(1)
     trinomial = user.get_trinomial
 
