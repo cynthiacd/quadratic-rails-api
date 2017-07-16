@@ -23,10 +23,14 @@ class TrinomialsController < ApplicationController
     user = User.find_by(username: "user1")
     # p user
     report = user.generate_mastery_report
-
+    report.delete("total_problems")
     # lowest_pattern = report.min_by { |pattern, level| level }[0].to_s # returns [pattern: level]
+
+    lowest_level = report.min_by { |pattern, level| level }[1]
+    p lowest_level
+    
     lowest_patterns = []
-    report.each { |pattern, level| lowest_patterns << pattern if level < 60 }
+    report.each { |pattern, level| lowest_patterns << pattern if level <= lowest_level }
     pattern = lowest_patterns.sample.to_s
     p pattern
 
@@ -38,8 +42,7 @@ class TrinomialsController < ApplicationController
     when "a_greater_one"
       trinomial = ATrinomial.new.generate_random_pattern
     end
-
-    p trinomial
+    # p trinomial
 
     render json: trinomial,
            status: :ok
