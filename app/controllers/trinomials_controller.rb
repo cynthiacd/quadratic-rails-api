@@ -5,7 +5,7 @@ class TrinomialsController < ApplicationController
     # trinomial generates 4 diff patterns so it should be in there four times...
     # or all four patterns should be there own class
     type = ["trinomial", "trinomial", "trinomial", "trinomial", "special", "a>1"].sample
-
+    # type = "a>1"
     case type
       when "trinomial"
         trinomial = Trinomial.new
@@ -28,7 +28,7 @@ class TrinomialsController < ApplicationController
 
     lowest_level = report.min_by { |pattern, level| level }[1]
     p lowest_level
-    
+
     lowest_patterns = []
     report.each { |pattern, level| lowest_patterns << pattern if level <= lowest_level }
     pattern = lowest_patterns.sample.to_s

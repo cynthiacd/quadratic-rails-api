@@ -13,8 +13,8 @@ class ATrinomial < ApplicationRecord
   # for this I don't care about the sign patterns so we can generate all four sign patterns
   # and not have to id them
   def generate_random_pattern
-    b = (@a * self.root2 + self.root1).to_i
-    c = (self.root1 * self.root2).to_i
+    b = (@a * self.root2 + self.root1)
+    c = (self.root1 * self.root2)
 
     return {
       pattern: self.pattern,
