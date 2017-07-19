@@ -13,7 +13,9 @@ Rails.application.routes.draw do
                                     (custom)/ }
 
   get "trinomial/:pattern", to: "trinomials#new_custom", as: "new_trinomial", contraints: pattern_constraints
-  # get "trinomial/:pattern", to: "tinomial#new_by_pattern" as: "new_trinomial_by_pattern",
-  get "user/report", to: "users#new_report", as: "user_report"
+
+  post "user/signup", to: "users#create", as: "new_user"
   post "trinomial/check", to: "users#check_solution", as: "check_solution"
+  get "user/report", to: "users#new_report", as: "user_report"
+
 end

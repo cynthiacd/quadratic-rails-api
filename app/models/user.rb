@@ -1,4 +1,7 @@
+require 'bcrypt'
+
 class User < ApplicationRecord
+  include BCrypt
   validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
 
   def update_mastery_levels(problem_info)
@@ -30,6 +33,16 @@ class User < ApplicationRecord
     report["total_problems"] = total_problems
 
     return report
+  end
+
+  # these methods are using BCrypt Gem
+  def password
+    @password ||= Password.new(password_hash)
+  end
+
+  def password=(new_password)
+    @password = Password.create(new_password)
+    self.password_hash = @password
   end
 end
 

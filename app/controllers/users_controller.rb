@@ -1,5 +1,17 @@
 class UsersController < ApplicationController
 
+  def create
+    # username = params[:username]
+    # password = params[:password]
+
+    @user = User.new(username)
+    @user.password = params[:password]
+    @user.save
+  end
+
+  def login
+  end
+
   def check_solution
     # the params might look like: { "trinomial" => { "general_form": "blah",
                                               # "solution": "()()",
