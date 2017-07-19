@@ -4,9 +4,16 @@ class UsersController < ApplicationController
     # username = params[:username]
     # password = params[:password]
 
-    @user = User.new(username)
+    @user = User.new
+    @user.username = params[:username]
     @user.password = params[:password]
     @user.save
+
+    if @user.valid?
+      render status: :ok, json: { message: "success - user was added" }
+    else
+      render status: :bad_request, json: @user.errors
+    end
   end
 
   def login
