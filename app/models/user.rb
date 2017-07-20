@@ -3,7 +3,7 @@ require 'bcrypt'
 class User < ApplicationRecord
   # include BCrypt
   has_secure_password
-  before_create :generate_confirmation_info
+  # before_create :generate_confirmation_info
 
   validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
 
@@ -38,10 +38,10 @@ class User < ApplicationRecord
     return report
   end
 
-  def generate_confirmation_info
-    self.confirmation_token = SecureRandom.hex(10)
-    self.iat = Time.now.utc
-  end
+  # def generate_confirmation_info
+  #   self.confirmation_token = SecureRandom.hex(10)
+  #   self.iat = Time.now.utc
+  # end
 
   # # these methods are using BCrypt Gem
   # def password

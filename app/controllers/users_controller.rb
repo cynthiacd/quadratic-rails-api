@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   # before_action :authenticate_user
+  # need this cause rails auto hids password and password_confirmation - without
+  # password appears to be missing and fails validations
   wrap_parameters :user, include: [:username, :password, :password_confirmation]
 
   # will this be moved to user_token_controller?
@@ -18,8 +20,7 @@ class UsersController < ApplicationController
       # (must keep very secret - hide in env file?)
       # so if user posts again (a solution) they can send that Token
       # and you can id the user by that Token :)
-      render status: :created, json: { message: "success - user was added",
-                                  token: user.confirmation_token }
+      render status: :created, json: { message: "success - user was added" }
     else
       render status: :bad_request, json: user.errors
     end
@@ -27,6 +28,15 @@ class UsersController < ApplicationController
 
   # will this be moved to user_token_controller?
   def login
+    user = User.find_by(username: params[:username].to_s.downcase)
+    p user
+
+    if user && user.authenticate(params[:password])
+      auth_token = JsonWebToken.encode( {user_id: user.id} )
+      render json: {auth_token: auth_token}, status: :ok
+    else
+      render json: {error: 'Invalid username / password'}, status: :unauthorized
+    end
   end
 
   def check_solution
