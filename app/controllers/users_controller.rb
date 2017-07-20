@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user
 
+  # will this be moved to user_token_controller?
   def create
     # username = params[:username]
     # password = params[:password]
@@ -21,6 +23,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # will this be moved to user_token_controller?
   def login
   end
 
