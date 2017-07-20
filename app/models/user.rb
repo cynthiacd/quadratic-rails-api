@@ -1,7 +1,10 @@
 require 'bcrypt'
 
 class User < ApplicationRecord
-  include BCrypt
+  # include BCrypt
+  has_secure_password
+  before_create :generate_confirmation_info
+
   validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
 
   def update_mastery_levels(problem_info)
@@ -35,15 +38,20 @@ class User < ApplicationRecord
     return report
   end
 
-  # these methods are using BCrypt Gem
-  def password
-    @password ||= Password.new(password_hash)
+  def generate_confirmation_info
+    self.confirmation_token = SecureRandom.hex(10)
+    self.iat = Time.now.utc
   end
 
-  def password=(new_password)
-    @password = Password.create(new_password)
-    self.password_hash = @password
-  end
+  # # these methods are using BCrypt Gem
+  # def password
+  #   @password ||= Password.new(password_hash)
+  # end
+  #
+  # def password=(new_password)
+  #   @password = Password.create(new_password)
+  #   self.password_hash = @password
+  # end
 end
 
 # plus_plus_level = ((self.plus_plus_mastery / 10.0) * 100).to_i #if self.plus_plus_count > 5

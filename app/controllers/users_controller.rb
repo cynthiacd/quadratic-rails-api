@@ -1,23 +1,25 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user
+  # before_action :authenticate_user
+  wrap_parameters :user, include: [:username, :password, :password_confirmation]
 
   # will this be moved to user_token_controller?
   def create
     # username = params[:username]
     # password = params[:password]
+    # p params
+    user = User.new(user_params)
+    # user.username = params[:username]
+    # user.password = params[:password]
+    # user.save
 
-    user = User.new
-    user.username = params[:username]
-    user.password = params[:password]
-    user.save
-
-    if user.valid?
+    if user.save
       # need to send back token to show user is loggin!
       # the JSON Web Token (JWT) will be UserID + our Secret String
       # (must keep very secret - hide in env file?)
       # so if user posts again (a solution) they can send that Token
       # and you can id the user by that Token :)
-      render status: :ok, json: { message: "success - user was added" }
+      render status: :created, json: { message: "success - user was added",
+                                  token: user.confirmation_token }
     else
       render status: :bad_request, json: user.errors
     end
@@ -37,7 +39,7 @@ class UsersController < ApplicationController
                                               # "step2": "blah",
                                               # "step3/final answer": "blah"
                                               # "points": true or false }}
-
+    # can change to current_user once
     user = User.find_by(username: params["username"])
     # call User class function to update mastery level
     user.update_mastery_levels(params)
@@ -49,5 +51,11 @@ class UsersController < ApplicationController
     user = User.find(1)
     report = user.generate_mastery_report
     render json: report, status: :ok
+  end
+
+  private
+
+  def user_params
+    return params.required(:user).permit(:username, :password, :password_confirmation)
   end
 end
