@@ -4,15 +4,20 @@ class UsersController < ApplicationController
     # username = params[:username]
     # password = params[:password]
 
-    @user = User.new
-    @user.username = params[:username]
-    @user.password = params[:password]
-    @user.save
+    user = User.new
+    user.username = params[:username]
+    user.password = params[:password]
+    user.save
 
-    if @user.valid?
+    if user.valid?
+      # need to send back token to show user is loggin!
+      # the JSON Web Token (JWT) will be UserID + our Secret String
+      # (must keep very secret - hide in env file?)
+      # so if user posts again (a solution) they can send that Token
+      # and you can id the user by that Token :)
       render status: :ok, json: { message: "success - user was added" }
     else
-      render status: :bad_request, json: @user.errors
+      render status: :bad_request, json: user.errors
     end
   end
 
@@ -23,6 +28,7 @@ class UsersController < ApplicationController
     # the params might look like: { "trinomial" => { "general_form": "blah",
                                               # "solution": "()()",
                                               # "username": "testname1",
+                                              # "token": "userToken"
                                               # "pattern": "plus_plus",
                                               # "step1": "blah",
                                               # "step2": "blah",
