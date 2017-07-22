@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  # before_action :authenticate_user
+  before_action :authenticate_user only: [:check_solution, :report]
   # need this cause rails auto hids password and password_confirmation - without
   # password appears to be missing and fails validations
   wrap_parameters :user, include: [:username, :password, :password_confirmation]
