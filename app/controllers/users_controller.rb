@@ -27,9 +27,9 @@ class UsersController < ApplicationController
   end
 
   # will this be moved to user_token_controller?
-  def login
+  def signin
     user = User.find_by(username: params[:username].to_s.downcase)
-    p user
+    # p user
 
     if user && user.authenticate(params[:password])
       auth_token = JsonWebToken.encode( {user_id: user.id} )
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
                                               # "step2": "blah",
                                               # "step3/final answer": "blah"
                                               # "points": true or false }}
-    # can change to current_user once
+    # can change to current_user once singin/singout is working
     user = User.find_by(username: params["username"])
     # call User class function to update mastery level
     user.update_mastery_levels(params)
