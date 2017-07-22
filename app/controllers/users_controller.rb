@@ -31,7 +31,8 @@ class UsersController < ApplicationController
 
   def check_solution
     # can change to current_user once singin/singout is working
-    user = User.find_by(username: params["username"])
+    # user = User.find_by(username: params["username"])
+    user = current_user
     # call User class function to update mastery level
     user.update_mastery_levels(params)
     # provide API response
@@ -40,7 +41,7 @@ class UsersController < ApplicationController
 
   def new_report
     # will change to current_user once auth is finalized
-    user = User.find(1)
+    user = current_user
     report = user.generate_mastery_report
     render json: report, status: :ok
   end

@@ -1,25 +1,7 @@
 class TrinomialsController < ApplicationController
+  before_action :authenticate_request!, only: [:new]
 
-  #this will respond to get request and provide a problem
-  # def new
-  #   # trinomial generates 4 diff patterns so it should be in there four times...
-  #   # or all four patterns should be there own class
-  #   type = ["trinomial", "trinomial", "trinomial", "trinomial", "special", "a>1"].sample
-  #   # type = "a>1"
-  #   case type
-  #     when "trinomial"
-  #       trinomial = Trinomial.new
-  #     when "special"
-  #       trinomial = SpecialTrinomial.new
-  #     when "a>1"
-  #       trinomial = ATrinomial.new
-  #   end
-  #
-  #   render json: trinomial.generate_random_pattern,
-  #          status: :ok
-  # end
-
-  def new_custom
+  def new
     user = User.find_by(username: "user1")
 
     if params[:pattern] == "custom"
@@ -51,3 +33,22 @@ class TrinomialsController < ApplicationController
            status: :ok
   end
 end
+
+#this will respond to get request and provide a problem
+# def new
+#   # trinomial generates 4 diff patterns so it should be in there four times...
+#   # or all four patterns should be there own class
+#   type = ["trinomial", "trinomial", "trinomial", "trinomial", "special", "a>1"].sample
+#   # type = "a>1"
+#   case type
+#     when "trinomial"
+#       trinomial = Trinomial.new
+#     when "special"
+#       trinomial = SpecialTrinomial.new
+#     when "a>1"
+#       trinomial = ATrinomial.new
+#   end
+#
+#   render json: trinomial.generate_random_pattern,
+#          status: :ok
+# end

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
                                     (a_greater_one)|
                                     (custom)/ }
 
-  get "trinomial/:pattern", to: "trinomials#new_custom", as: "new_trinomial", contraints: pattern_constraints
+  get "trinomial/:pattern", to: "trinomials#new", as: "new_trinomial", contraints: pattern_constraints
 
   post "user/signup", to: "users#create", as: "new_user"
   post 'user/singin', to: "users#signin", as: "signin_user"
