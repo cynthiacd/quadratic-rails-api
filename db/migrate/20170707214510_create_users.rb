@@ -2,6 +2,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
   def change
     create_table :users do |t|
       t.string :username
+      t.string :password_digest
       t.integer :plus_plus_mastery, default: 0
       t.integer :minus_plus_mastery, default: 0
       t.integer :minus_minus_mastery, default: 0
