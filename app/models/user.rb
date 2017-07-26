@@ -16,8 +16,10 @@ class User < ApplicationRecord
       self.total_problems_correct += 1
     end
 
-    pattern = problem_info["pattern"] + "_mastery"
-    self[pattern] += problem_info["score"]
+    pattern_mastery = problem_info["pattern"] + "_mastery"
+    self[pattern_mastery] += problem_info["score"]
+    self[pattern_mastery] = 0 if self[pattern] < 0
+
     self.save
   end
 
