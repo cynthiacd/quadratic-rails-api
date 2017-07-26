@@ -12,6 +12,10 @@ class User < ApplicationRecord
     pattern_count = problem_info["pattern"] + "_count"
     self[pattern_count] += 1
 
+    if problem_info["score"] == 1
+      self.total_problems_correct += 1
+    end
+
     pattern = problem_info["pattern"] + "_mastery"
     self[pattern] += problem_info["score"]
     self.save
@@ -19,6 +23,8 @@ class User < ApplicationRecord
 
   # you could divide by 10 - so 100% correlates with a score of +10
   def generate_mastery_report
+    report = {}
+
     patterns = ["plus_plus",
                 "plus_minus",
                 "minus_plus",
@@ -27,14 +33,14 @@ class User < ApplicationRecord
                 "plus_dbl_sq",
                 "minus_dbl_sq",
                 "a_greater_one" ]
-    report = {}
+
 
     patterns.each do |pattern|
       report[pattern] = ( ( self["#{pattern}_mastery"] / 10.0 ) * 100 ).to_i
     end
 
     report["total_problems"] = total_problems
-
+    report["total_problems_correct"] = self.total_problems_correct
     return report
   end
 
