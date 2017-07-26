@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
     pattern_mastery = problem_info["pattern"] + "_mastery"
     self[pattern_mastery] += problem_info["score"]
-    self[pattern_mastery] = 0 if self[pattern] < 0
+    self[pattern_mastery] = 0 if self[pattern_mastery] < 0
 
     self.save
   end
