@@ -16,8 +16,7 @@ Rails.application.routes.draw do
   get "trinomial/:pattern", to: "trinomials#new", as: "new_trinomial", contraints: pattern_constraints
 
   post "user/signup", to: "users#create", as: "new_user"
-  post 'user/signin', to: "users#signin", as: "signin_user"
+  post "user/signin", to: "users#signin", as: "signin_user"
   post "trinomial/check", to: "users#check_solution", as: "check_solution"
   get "user/report", to: "users#new_report", as: "user_report"
-
 end

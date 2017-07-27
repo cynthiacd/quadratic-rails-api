@@ -2,7 +2,7 @@ class TrinomialsController < ApplicationController
   before_action :authenticate_request!, only: [:new]
 
   def new
-    user = User.find_by(username: "user1")
+    user = current_user
 
     if params[:pattern] == "custom"
       report = user.generate_mastery_report

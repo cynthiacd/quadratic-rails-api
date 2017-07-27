@@ -45,41 +45,4 @@ class User < ApplicationRecord
     report["total_problems_correct"] = self.total_problems_correct
     return report
   end
-
-  # def generate_confirmation_info
-  #   self.confirmation_token = SecureRandom.hex(10)
-  #   self.iat = Time.now.utc
-  # end
-
-  # # these methods are using BCrypt Gem
-  # def password
-  #   @password ||= Password.new(password_hash)
-  # end
-  #
-  # def password=(new_password)
-  #   @password = Password.create(new_password)
-  #   self.password_hash = @password
-  # end
 end
-
-# plus_plus_level = ((self.plus_plus_mastery / 10.0) * 100).to_i #if self.plus_plus_count > 5
-# minus_plus_level = ((self.minus_plus_mastery / 10.0) * 100).to_i #if self.minus_plus_count > 5
-# plus_minus_level = ((self.plus_minus_mastery / 10.0) * 100).to_i #if self.plus_minus_count > 5
-# minus_minus_level = ((self.minus_minus_mastery / 10.0) * 100).to_i #if self.minus_minus_count > 5
-#
-# plus_dbl_sq_level = ((self.plus_dbl_sq_mastery / 10.0) * 100).to_i #if self.plus_dbl_sq_count > 5
-# minus_dbl_sq_level = ((self.minus_dbl_sq_mastery / 10.0) * 100 ).to_i #if self.minus_dbl_sq_count > 5
-# diff_sq_level = ((self.diff_sq_mastery / 10.0) * 100).to_i #if self.diff_sq_count > 5
-# a_greater_one_level = ((self.a_greater_one_mastery / 10.0) * 100).to_i #if self.a_greater_one_count > 5
-#
-# return {
-#   plus_plus: plus_plus_level,
-#   minus_plus: minus_plus_level,
-#   minus_minus: minus_minus_level,
-#   plus_minus: plus_minus_level,
-#   minus_dbl_sq: minus_dbl_sq_level,
-#   plus_dbl_sq: plus_dbl_sq_level,
-#   diff_sq: diff_sq_level,
-#   a_greater_one: a_greater_one_level,
-#   total_problems: total_problems
-# }
